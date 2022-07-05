@@ -55,7 +55,7 @@ function Dashboard() {
     }
 
     // Approved BALANCE
-    const totalApprovedBalance = filterTransactionsData("approved")
+    const totalApprovedBalance = transactions.length === 0 ? 0 : transactions.filter(tran => tran.status === "approved").map(transaction => transaction.totalAmount).length === 0 ? 0 : transactions.filter(tran => tran.status === "approved").map(transaction => transaction.totalAmount).reduce((total, tran) => total += parseInt(tran), 0);
     // PENDING
     const totalPendingBalance = filterTransactionsData("pending")
     //DENIED
