@@ -100,7 +100,7 @@ function Scanner() {
         {/* bottom navbar */}
         <div
           id="navbar-bottom"
-          className="w-full h-auto py-2 px-[50px] bg-dark-300 absolute bottom-0 left-0 flex flex-row items-center justify-center gap-1 md:px-[10px] "
+          className="w-full h-auto py-2 bg-dark-300 absolute bottom-0 left-0 flex flex-row items-start justify-center gap-1 md:px-[0px] "
         >
           <button
             className={`px-5 py-3 cursor-pointer transition-all hover:scale-[.85] flex flex-row items-center justify-start rounded-[30px] ${style1} font-extrabold  scale-[.75]`}
@@ -242,6 +242,10 @@ function ProductPreview({ data, deleteproductData }) {
           {cartAdded ? <IoIosCheckmark className={`mr-2 text-[25px] text-green-400`} /> : <IoIosCart className={`mr-2 text-[20px] text-white-100`} />}
           {cartAdded ? "Item Added To Cart" : "Add to Cart"}
         </button>
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     </div>
   );
@@ -583,7 +587,6 @@ function PaymentSection() {
       <br />
       <div className="w-full h-auto">
         <div id="head" className="w-full text-center flex flex-col items-center justify-center">
-          <p className="text-white-100 text-[20px]  ">Organization Name</p>
           <p className="text-white-200 text-[15px]  ">Goods Purchased.</p>
           <br />
           <p className="text-white-100 font-extrabold text-[30px]  "> <span className="text-white-200 text-[15px]">NGN</span> {total} </p>
@@ -592,6 +595,9 @@ function PaymentSection() {
       <br />
       <div className="w-full h-auto flex flex-col items-center justify-center">
         {elements}
+        <br />
+        <br />
+        <br />
       </div>
       <PaymentAlertModal />
     </div>
@@ -617,6 +623,15 @@ function PaymentAlertModal() {
     })()
   }, [])
 
+  const closeModal = async () => {
+    setVisible(false);
+    await sleep(1)
+    localStorage.setItem("qualet-cart", JSON.stringify({ items: [] }))
+    localStorage.setItem("qualet-isProductPurchased", JSON.stringify(null))
+    localStorage.setItem("qualet-trackingId", JSON.stringify(null))
+    window.location = "/scanner"
+  }
+
   return (
     <>
       {isPurchased === true && <div className="w-full h-full flex flex-col items-center justify-center bg-dark-500 absolute top-0 left-0 z-[1000] ">
@@ -629,10 +644,10 @@ function PaymentAlertModal() {
             <QRCode value={verificationLink} width={250} height={250} />
           </div>
           <h2 className={`text-red-200 font-extrabold text-[15px] text-center font-sans `}>
-            Verify and Approve Your Purchased.
+            Wait for A confirmation mail from the cachier
           </h2>
           <br />
-          <Button type="secondary" text="Close" />
+          <Button type="secondary" text="Close" onClick={closeModal} />
         </div>
       </div>}
     </>
@@ -642,18 +657,22 @@ function PaymentAlertModal() {
 function UserInfo({ next, handleInputs, input }) {
 
   return (
-    <div className="w-full flex flex-col items-center justify-between gap-7">
+    <div className="w-full flex flex-col items-center justify-between gap-5">
       <Input value={input.username} type="text" name="username" placeholder="Full Name" bgType="max" onChange={handleInputs} maxLength={200} />
       <Input value={input.email} type="email" name="email" placeholder="Email" bgType="max" onChange={handleInputs} maxLength={300} />
       <Input value={input.phonenumber} type="text" name="phonenumber" placeholder="Phonenumber" bgType="max" onChange={handleInputs} maxLength={12} />
       <Button type="secondary" text="Next" long={true} style={{ padding: "12px" }} onClick={next} />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   )
 }
 
 function CardSection({ loading, prev, input, handleInputs, makePayment }) {
   return (
-    <div className="w-full flex flex-col items-center justify-center">
+    <div className="w-full h-auto flex flex-col items-center justify-center">
       <Input value={input.cardNumber} maxLength={20} type="text" name="cardNumber" placeholder="4242-4242-4242" bgType="max" onChange={handleInputs} />
       <div className="w-full flex flex-row items-center justify-between gap-5">
         <Input value={input.cardExp} maxLength={5} type="text" name="cardExp" placeholder="09/22" bgType="max" onChange={handleInputs} />
@@ -665,6 +684,10 @@ function CardSection({ loading, prev, input, handleInputs, makePayment }) {
       </div>
       <br />
       <Button type="secondary" text={loading ? "Loading...." : "Make Payment"} long={true} style={{ padding: "12px" }} onClick={makePayment} />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   )
 }

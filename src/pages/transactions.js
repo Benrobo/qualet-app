@@ -183,16 +183,95 @@ function TransactionsDetails({ transactions }) {
   );
 }
 
-function VerifyTransaction({trackingId}) {
+function VerifyTransaction({ trackingId }) {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
+  const [type, setType] = useState("approving")
 
-  async function approveTransaction(){
-    
+  async function approveTransaction() {
+    setType("approve")
+    try {
+      setLoading(true);
+      const { res, data } = await Fetch(API_ROUTES.approveTransaction, {
+        method: "PUT",
+        body: JSON.stringify({
+          orgId: userInfo?.orgId,
+          userId: userInfo?.id,
+          trackingId
+        })
+      })
+      setLoading(false);
+
+      if (data.success === false) {
+        setError(data.message)
+        setSuccess(null)
+        return notif.error(data?.message)
+      }
+
+      // const { transac  tions } = data.data;
+      setSuccess(data.message)
+      setError(null)
+
+    } catch (e) {
+      setLoading(false)
+      setError(e.message)
+      setSuccess(null)
+    }
+  }
+
+  async function denyTransaction() {
+    setType("deny")
+    try {
+      setLoading(true);
+      const { res, data } = await Fetch(API_ROUTES.denyTransaction, {
+        method: "POST",
+        body: JSON.stringify({
+          orgId: userInfo?.orgId,
+          userId: userInfo?.id,
+          trackingId
+        })
+      })
+      setLoading(false);
+
+      if (data.success === false) {
+        setError(data.message)
+        setSuccess(null)
+        return notif.error(data?.message)
+      }
+
+      // const { transac  tions } = data.data;
+      setSuccess(data.message)
+      setError(null)
+
+    } catch (e) {
+      setLoading(false)
+      setError(e.message)
+      setSuccess(null)
+    }
   }
 
   return (
     <div className="w-full h-auto">
-      <div id="head" className="w-full">
-
+      <button className="btn absolute top-10 left-10 ">
+        <Link to="/transactions">Back</Link>
+      </button>
+      <div id="head" className="w-full p-8">
+        <div className="w-full h-[200px] text-center flex flex-col items-center justify-center">
+          <p className="text-dark-100 font-extrabold text-[20px] ">Veify Customer Transaction.</p>
+          <p className="text-dark-100 text-[15px] ">verify customer transactions.</p>
+        </div>
+        <div className="w-full text-center flex flex-col items-center justify-center">
+          <p className={` ${error !== null ? "text-red-400" : "text-green-800"} font-extrabold text-[20px] `}>
+            {error !== null ? error : success}
+          </p>
+        </div>
+        <br />
+        <br />
+        <div className="w-full flex flex-row items-center justify-center gap-5">
+          <Button type="primary" text={loading && type === "approve" ? "Approving" : "Approve Customer Transaction"} onClick={approveTransaction} />
+          <Button type="danger" text={loading && type === "deny" ? "Denying" : "Deny Customer Transaction"} onClick={denyTransaction} />
+        </div>
       </div>
     </div>
   )
