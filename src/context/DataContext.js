@@ -1,8 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
-import axios from "axios";
-import { Navigate } from "react-router";
-// import { Navigate } from "react-router";
 
 const DataContext = createContext(null);
 
@@ -11,13 +8,6 @@ export default DataContext;
 export function DataContextProvider({ children }) {
   const [user, setUser] = useState({});
 
-  // useEffect(() => {
-  //   if (localStorage.getItem("raypal") !== null) {
-  //     const info = JSON.parse(localStorage.getItem("raypal"));
-  //     setUser(info);
-  //   }
-  // }, []);
-  // const isAuthenticated = checkAuth()
   const isAuthenticated = checkAuth()
 
   const logout = () => {

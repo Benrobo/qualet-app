@@ -242,6 +242,8 @@ function AddProducts({ data, closeForm, type }) {
                 })
                 setLoading(false);
 
+                if(res.status === 413) return notif.error("Image size is too large")
+
                 if (data && data.status === 400) {
                     notif.error(`Something went wrong adding product. ${data.message}`)
                     throw new Error(data.message)
