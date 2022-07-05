@@ -73,7 +73,7 @@ function Transactions() {
               :
               <>
                 {
-                  typeof trackingId === "undefined" ? <TransactionsDetails transactions={transactions} /> : <VerifyTransaction />
+                  typeof trackingId === "undefined" ? <TransactionsDetails transactions={transactions} /> : <VerifyTransaction trackingId={trackingId} />
                 }
               </>
         }
@@ -183,7 +183,11 @@ function TransactionsDetails({ transactions }) {
   );
 }
 
-function VerifyTransaction() {
+function VerifyTransaction({trackingId}) {
+
+  async function approveTransaction(){
+    
+  }
 
   return (
     <div className="w-full h-auto">
