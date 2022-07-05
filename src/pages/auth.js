@@ -143,7 +143,7 @@ function LoginForm({ toggleActiveForm, AuthenticateUser, loading }) {
   };
 
   return (
-    <div className="w-[400px] h-auto bg-white-200 mx-auto shadow-lg rounded-md shadow-dark-400 p-4  ">
+    <div className="w-[350px] h-auto bg-white-200 mx-auto shadow-lg rounded-md shadow-dark-400 p-4  ">
       <div id="head" className="w-full h-auto">
         <p className="text-dark-100 text-[20px] font-extrabold ">
           Login to your account.
@@ -204,7 +204,7 @@ function SignupForm({ toggleActiveForm, AuthenticateUser, loading }) {
   };
 
   return (
-    <div className="w-[400px] h-auto bg-white-200 mx-auto shadow-lg rounded-md shadow-dark-400 p-4  ">
+    <div className="w-[350px] h-auto bg-white-200 mx-auto shadow-lg rounded-md shadow-dark-400 p-4  ">
       <div id="head" className="w-full h-auto">
         <p className="text-dark-100 text-[20px] font-extrabold ">
           Register an account.
